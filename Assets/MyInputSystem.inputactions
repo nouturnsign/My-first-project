@@ -34,7 +34,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dash",
+                    "name": "Teleport",
                     "type": "Button",
                     "id": "18efd18b-4693-4cc7-8c2e-a489d0594d5d",
                     "expectedControlType": "",
@@ -245,11 +245,11 @@
                 {
                     "name": "",
                     "id": "ed439360-33a1-4507-86aa-c2a7689f8b11",
-                    "path": "",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
+                    "action": "Teleport",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
