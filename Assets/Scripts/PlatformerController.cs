@@ -43,7 +43,8 @@ public class PlatformerController : MonoBehaviour
     {
         Vector2 vector = value.Get<Vector2>();
         rigidBody.linearVelocityX = vector.x * speed;
-        lastDirection = Mathf.Sign(vector.x);
+        if (vector.x != 0)
+            lastDirection = Mathf.Sign(vector.x);
     }
 
     void OnJump()
