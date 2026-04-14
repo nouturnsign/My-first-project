@@ -1,3 +1,5 @@
+using System;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,20 +14,25 @@ public class PlatformerController : MonoBehaviour
     private bool hasRemainingJump = false;
     private bool isGrounded = false;
     private bool hasTeleported = false;
+    private bool isFacingRight = true;
     private float lastDirection = 1f;
     public int coinsCollected = 0;
+    private Animator playerAnim;
+    private SpriteRenderer spriteRenderer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         initialPosition = rigidBody.position;
+        playerAnim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        playerAnim.SetBool("isGrounded", isGrounded);
     }
 
     void FixedUpdate()
@@ -45,6 +52,18 @@ public class PlatformerController : MonoBehaviour
         rigidBody.linearVelocityX = vector.x * speed;
         if (vector.x != 0)
             lastDirection = Mathf.Sign(vector.x);
+    
+        playerAnim.SetBool("isRunning", rigidBody.linearVelocityX != 0f);
+        if (vector.x < 0 && isFacingRight)
+        {
+            spriteRenderer.flipX = true;
+            isFacingRight = false;
+        }
+        if (vector.x > 0 && !isFacingRight)
+        {
+            spriteRenderer.flipX = false;
+            isFacingRight = true;
+        }
     }
 
     void OnJump()
