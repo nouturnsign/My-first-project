@@ -1,14 +1,15 @@
-using System;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlatformerController : MonoBehaviour
 {
+    [SerializeField] private AudioClip jumpSFX;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpVelocity = 3f;
     [SerializeField] private float teleportDisplacementX = 3f;
     [SerializeField] private float killPlaneY = 0f;
+    
+    private AudioSource audioSource;
     private Rigidbody2D rigidBody;
     private Vector2 initialPosition;
     private bool hasRemainingJump = false;
@@ -27,6 +28,7 @@ public class PlatformerController : MonoBehaviour
         initialPosition = rigidBody.position;
         playerAnim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -69,17 +71,20 @@ public class PlatformerController : MonoBehaviour
     void OnJump()
     {
         Debug.Log($"{isGrounded}, {hasRemainingJump}");
+        audioSource.clip = jumpSFX;
 
         if (isGrounded)
         {
             hasRemainingJump = true;
             rigidBody.linearVelocityY = jumpVelocity;
+            audioSource.Play();
         }
         
         else if (hasRemainingJump)
         {
             hasRemainingJump = false;
             rigidBody.linearVelocityY = jumpVelocity;
+            audioSource.Play();
         }
     }
 
