@@ -8,7 +8,7 @@ public class PlatformerController : MonoBehaviour
     [SerializeField] private float jumpVelocity = 3f;
     [SerializeField] private float teleportDisplacementX = 3f;
     [SerializeField] private float killPlaneY = 0f;
-    
+
     private AudioSource audioSource;
     private Rigidbody2D rigidBody;
     private Vector2 initialPosition;
@@ -54,7 +54,7 @@ public class PlatformerController : MonoBehaviour
         rigidBody.linearVelocityX = vector.x * speed;
         if (vector.x != 0)
             lastDirection = Mathf.Sign(vector.x);
-    
+
         playerAnim.SetBool("isRunning", rigidBody.linearVelocityX != 0f);
         if (vector.x < 0 && isFacingRight)
         {
@@ -79,7 +79,7 @@ public class PlatformerController : MonoBehaviour
             rigidBody.linearVelocityY = jumpVelocity;
             audioSource.Play();
         }
-        
+
         else if (hasRemainingJump)
         {
             hasRemainingJump = false;
